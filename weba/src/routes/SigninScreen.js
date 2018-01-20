@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 import webABG from '../assets/webABG.png';
-
+import { firebase, database } from '../firebase/firebase';
 const Container = styled.div`
 	display: flex;
 	flex: 1;
@@ -149,6 +149,37 @@ const ButtonText2 = styled.div`
 `;
 
 class SigninScreen extends Component {
+	state = { email: '', pass: '', code: '' };
+
+	onEmailChange = event => {
+		this.setState({ email: event.target.value });
+	};
+
+	onPassChange = event => {
+		this.setState({ pass: event.target.value });
+	};
+
+	onCodeChange = event => {
+		this.setState({ code: event.target.value });
+	};
+
+	handleSubmit = event => {
+		const { email, pass, code } = this.state;
+
+		firebase
+			.auth()
+			.signInWithEmailAndPassword(email, pass)
+			.then(async ({ uid }) => {
+				let name = await database
+					.ref(`Users/${uid}/Name`)
+					.once('value')
+					.then(snapshot => snapshot.val());
+				console.log('name', name, uid);
+				// await this.props.signIn(uid, code, name);
+				// this.props.navigation.navigate('theme');
+			})
+			.catch(() => {});
+	};
 	render() {
 		return (
 			<Container>
@@ -160,14 +191,33 @@ class SigninScreen extends Component {
 						<Header>Classroom</Header>
 						<Form>
 							<FormLabel>Email Address</FormLabel>
-							<FormInput type="text" placeholder="johnny@appleseed.com" />
+							<FormInput
+								type="text"
+								placeholder="johnny@appleseed.com"
+								value={this.state.email}
+								onChange={this.onEmailChange}
+							/>
 							<FormLabel>Password</FormLabel>
-							<FormInput type="password" placeholder="password" />
+							<FormInput
+								type="password"
+								placeholder="password"
+								value={this.state.pass}
+								onChange={this.onPassChange}
+							/>
 							<FormLabel>Classroom Code</FormLabel>
-							<FormInput type="text" placeholder="12345" />
+							<FormInput
+								type="text"
+								placeholder="12345"
+								value={this.state.code}
+								onChange={this.onCodeChange}
+							/>
 						</Form>
 						<Footer>
-							<Button1 type="button" value="Login" />
+							<Button1
+								type="button"
+								value="Login"
+								onClick={this.handleSubmit}
+							/>
 							<Button2>
 								<ButtonText2>Sign-Up</ButtonText2>
 							</Button2>
