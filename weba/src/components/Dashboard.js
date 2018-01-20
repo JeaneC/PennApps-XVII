@@ -8,7 +8,10 @@ import edit from '../assets/edit.png';
 import folder from '../assets/folder.png';
 import logout from '../assets/logout.png';
 import { firebase, database } from '../firebase/firebase';
+import Iframe from 'react-iframe';
 
+const pptId =
+	'https://docs.google.com/presentation/d/e/2PACX-1vQMWeVYHk5NjwNqLjM-wcxqQK8qcVhdi53wprdAIl7Mqy7Xx1je9JdaaOn7RUMHK0jrejPLPqJDxibX/embed?start=false&loop=false&delayms=3000';
 const Container = styled.div`
 	display: flex;
 	flex: 1;
@@ -31,6 +34,9 @@ const Body = styled.div`
 	flex: 12;
 	height: 100vh;
 	background-color: #f8eee7;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 `;
 //#6E3667
 //#f8eee7
@@ -57,7 +63,7 @@ const Box3 = styled.div`
 	flex: 1;
 	margin-bottom: 10px;
 	display: flex;
-	justify-content: center;
+	justify-content: space-around;
 	align-items: center;
 `;
 
@@ -75,34 +81,39 @@ const SmallGap = styled.div`
 	flex: 0.5;
 `;
 
+const Frame = styled.iframe`
+	background: white;
+`;
+
+const Transcript = styled.div`
+	background-color: #94618e;
+	width: 45%;
+	height: 90vh;
+`;
+
 class Dashboard extends Component {
 	render() {
 		return (
-			<Container>
-				<NavBar>
-					<Box>
-						<Icon src={menu} />
-					</Box>
-					<HR />
-
-					<Box2>
-						<Icon src={presentation} />
-					</Box2>
-					<Box3>
-						<Icon src={edit} />
-					</Box3>
-					<HR />
-
-					<Box2>
-						<Icon src={folder} />
-					</Box2>
-					<BigGap />
-					<Box>
-						<Icon src={logout} />
-					</Box>
-				</NavBar>
-				<Body />
-			</Container>
+			<NavBar>
+				<Box>
+					<Icon src={menu} />
+				</Box>
+				<HR />
+				<Box2>
+					<Icon src={presentation} />
+				</Box2>
+				<Box3>
+					<Icon src={edit} />
+				</Box3>
+				<HR />
+				<Box2>
+					<Icon src={folder} />
+				</Box2>
+				<BigGap />
+				<Box>
+					<Icon src={logout} />
+				</Box>
+			</NavBar>
 		);
 	}
 }
