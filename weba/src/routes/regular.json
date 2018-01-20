@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "ninth-camera-138823",
+  "private_key_id": "5ab556dc37d7fb6b97134a3bc5023f46ae2231dc",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCpasDCLIO/5N0f\ne6ZWYV3en36H3RYKdpcQ+mJgFHghsXJTpVyPyDF1AxzBzG9uNRXZvu2NB/wMZWGz\nH5Lws25kbkvHIM8tk5RM1GcVndWzMOx9u/0/GNTYOGDjIVE16HWnkyD7VM+TOLDS\nCxfr0Bq8KVEOjFNwIqNLR0DGOiHzEzNfiwscyM3ZwlGhUXgw6+RcbJU5W9tCJQrh\nPbZqMU+pCorxU80MhirLEJRLai6i5SaHFuiF4DkD2QTv7G9JDjvNvxfhpqQbyX7k\nyjsCbcZ7rnBp1jkDZs0WhUoi+iuvmw28YqAWEFnJROab+tTHU8Xzn2z+WVQ5JtW3\nff51yCaBAgMBAAECggEAEgKWQU4oJ2M2Gp2zfiVVrE/6TIk1SaF3x8dGY/5pEvPh\nOoEuyN44W78b9II+KlIcY4yHhmGd6tdwPnGR1mLMzoJnLeEQBUFWF6DQ4Jxp1mXS\nDj/I2UdTgTTlH+Av2PJAZ7MdY3qNopH5QisJvPjfjrc5tbk3OYmFIICPo0MUztlE\nZM8FMwverajCNdl2QIiAf0zgF4ECQo6n61C7temXBZa6f5n1olFgHm57xwFMvRI3\nb9QQF6GlsSP4zz7KJbBbEM7F7Z/3CB8gRp3Zwow6ILqB0eD54TGhKfokHgSjuQYf\nBW3tbSx3X/GwEglEZbZbbS/fiLzyj3IL2hf0LHW+DQKBgQDW+ArVibnzXfNXMjUL\n6hEIMmgVF4gDLLnSdQw0tOGp2Op3J4qzThUOW917AVMQHs4Kad5zY0AjlQY8srvP\nAfxGHKQYCdeKSoZ5b3ANpal74Fy7P8DU7X4ZTYWGcpHua489TMnmhHgdvrBniNpA\nmvyY+7oh6/FQ+MEH7is1m31vqwKBgQDJwOwN9hUSyzKZCdFsYx7fjUm2iXsBEeT5\nhE+GrooAKVm5+OAYFIjCMlQNEn4pHx4cAJP9zMM8iXnAcPDu5MJ9dRIUg/+UZPgx\n0ZOhyqI9tgJbFszUQsFouvOPzL8KKpZ8o0xWicWhem2xiQdIVT8Q6YR7OMABU45b\n6NuAae4GgwKBgEowjLypra1aLVNYloooG/yyOM2es2g1FWSW1MGT85XEsRayZOIA\n/q9X8RY0nNAhcYaShx1XkZk2I1LrdHm6+6/OzqslKmgl1EcwuIFdPSLtidNt60UR\nOcXNxVljTQ31vRew2rVd3n6VgxgYWQqW8rpxlgmC/mOtliEAh5UWtrHFAoGAbxSU\nIx+w/Jb59b6tGmL8lZLh2emZ2r3ydtq9OmcQvgQGTdlT8I4lud4h3symv5dNaZd7\n48oAWG1MpoLIdI9o8dAqMzd12Us6R5ufD/5UE2wJogNMpTVX7YS5IxxUtpE6J8d0\n+VSDhmO0z4Gli9K7lWEsuvdE57YMdFghunMYRWcCgYAxeBvSkoAF69saFzg6M4hM\nZ5Kpk+YKaTblga2OpsIcJxTNRNMA2yQ9rNJ6n2s/fUaHkS7VvC/ZdoLUk0l4tWKX\n5fj2GZJLLWk9IDRNmrQeW3svQkDuifeuuedjAExyc63fqvgWeffE48MJxRtVx3gO\nt3+ZeFtf3X52f0nBfFqx3w==\n-----END PRIVATE KEY-----\n",
+  "client_email": "classroom@ninth-camera-138823.iam.gserviceaccount.com",
+  "client_id": "108768908033637061937",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/classroom%40ninth-camera-138823.iam.gserviceaccount.com"
+}

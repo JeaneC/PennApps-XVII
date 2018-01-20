@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@google-cloud/speech": "^1.0.0",
     "firebase": "^4.9.0",
+    "node-record-lpcm16": "^0.3.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-iframe": "^1.1.0",
@@ -12,7 +14,9 @@
     "react-scripts": "1.1.0",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
-    "styled-components": "^2.4.0"
+    "styled-components": "^2.4.0",
+    "to-case": "^2.0.0",
+    "wordpos": "^1.1.5"
   },
   "scripts": {
     "start": "react-scripts start",
