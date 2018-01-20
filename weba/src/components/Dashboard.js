@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 import webABG from '../assets/webABG.png';
 import menu from '../assets/menu.png';
@@ -15,21 +16,22 @@ const pptId =
 const Container = styled.div`
 	display: flex;
 	flex: 1;
-	background-color: #f8eee7;
+
 	height: 100vh;
 	justify-content: center;
 	align-items: center;
 `;
 
 const NavBar = styled.div`
-	flex: 1;
+	flex: 0.7;
 	display: flex;
 	flex-direction: column;
 	height: 100vh;
-	background-color: #6e3667;
+
 	justify-content: space-between;
 	align-items: center;
 `;
+
 const Body = styled.div`
 	flex: 12;
 	height: 100vh;
@@ -41,7 +43,7 @@ const Body = styled.div`
 //#6E3667
 //#f8eee7
 const Icon = styled.img`
-	width: 50px;
+	width: 30px;
 `;
 
 const Box = styled.div`
@@ -95,13 +97,18 @@ class Dashboard extends Component {
 	render() {
 		return (
 			<NavBar>
-				<Box>
-					<Icon src={menu} />
-				</Box>
+				<Link to="/">
+					<Box>
+						<Icon src={menu} />
+					</Box>
+				</Link>
 				<HR />
-				<Box2>
-					<Icon src={presentation} />
-				</Box2>
+				<Link to="/present">
+					<Box2>
+						<Icon src={presentation} />
+					</Box2>
+				</Link>
+
 				<Box3>
 					<Icon src={edit} />
 				</Box3>

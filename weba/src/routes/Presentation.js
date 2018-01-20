@@ -16,25 +16,15 @@ const pptId =
 const Container = styled.div`
 	display: flex;
 	flex: 1;
-	background-color: #f8eee7;
+	background: linear-gradient(#502764, #a07777);
 	height: 100vh;
 	justify-content: center;
 	align-items: center;
 `;
 
-const NavBar = styled.div`
-	flex: 1;
-	display: flex;
-	flex-direction: column;
-	height: 100vh;
-	background-color: #6e3667;
-	justify-content: space-between;
-	align-items: center;
-`;
 const Body = styled.div`
 	flex: 12;
 	height: 100vh;
-	background-color: #f8eee7;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -84,12 +74,13 @@ const SmallGap = styled.div`
 
 const Frame = styled.iframe`
 	background: white;
+	width: 99.5%;
 `;
 
 const Transcript = styled.div`
-	background-color: #94618e;
 	width: 45%;
-	height: 90vh;
+
+	height: 100vh;
 	overflow-y: auto;
 	display: flex;
 	flex-direction: column;
@@ -175,7 +166,7 @@ class Presentation extends Component {
 					<Frame
 						src={pptId}
 						width="50%"
-						height="90%"
+						height="100%"
 						frameBorder="0"
 						allowtransparency="true"
 						style={{ backgroundColor: 'white' }}
