@@ -1,10 +1,59 @@
 import React, {Component} from 'react';
-import logo from '../logo.svg';
-import axios from 'axios'
 import '../App.css';
 import './stylesheets/Presentation.css'
+import record from 'node-record-lpcm16';
+import Speech from '@google-cloud/speech'
 
 class Presentation extends Component {
+
+    constructor(props) {
+        super(props);
+        this.speech = Speech();
+        const encoding = 'LINEAR16';
+        const sampleRateHertz = 16000;
+        const languageCode = 'en-US';
+        this.request = {
+            config: {
+                encoding,
+                sampleRateHertz,
+                languageCode,
+            },
+            interimResults: false // If you want interim results, set this to true
+        };
+        this.recognizeStream = this.speech.streamingRecognize(this.request)
+            .on('error', console.error)
+            .on('data', (data) => {
+                if (data.results[0] && data.results[0].alternatives[0]) {
+                    const rawText = data.results[0].alternatives[0].transcript;
+                    console.log(
+                        data.results[0] && data.results[0].alternatives[0]
+                            ? `Transcription: ${data.results[0].alternatives[0].transcript}\n`
+                            : `\n\nReached transcription time limit, press Ctrl+C\n`
+                    )
+                }
+            });
+    }
+
+    startRecording() {
+        console.log('starting recording');
+        // Start recording and send the microphone input to the Speech API
+        record
+            .start({
+                sampleRateHertz: 1600,
+                threshold: 0,
+                // Other options, see https://www.npmjs.com/package/node-record-lpcm16#options
+                verbose: false,
+                recordProgram: 'rec' // Try also "arecord" or "sox"
+            })
+            .on('error', console.error)
+            .pipe(this.recognizeStream);
+        return;
+    };
+
+    stopRecording() {
+        console.log('stopping recording');
+        record.stop();
+    }
 
     render() {
         return (
