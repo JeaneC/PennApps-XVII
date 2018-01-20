@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import SigninScreen from './routes/SigninScreen';
 
 class App extends Component {
 	render() {
 		return (
 			<div className="App">
-				To get started, edit <code>src/App.js</code> and save to reload.
+				<SigninScreen />
 			</div>
 		);
 	}
