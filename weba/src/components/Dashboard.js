@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-
+import { Link } from 'react-router';
 import webABG from '../assets/webABG.png';
 import menu from '../assets/menu.png';
 import presentation from '../assets/presentation.png';

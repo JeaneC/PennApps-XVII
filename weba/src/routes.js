@@ -1,24 +1,15 @@
-import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import React from 'react'
+import { Router, Route, hashHistory } from 'react-router'
 import SigninScreen from './routes/SigninScreen';
 import Presentation from './routes/Presentation';
 import Notepad from './routes/Notepad';
-// import Home from './components/Home'
-// import About from './components/About';
 
-const Main = () => (
-	<main>
-		<Switch>
-			<Route path="/" component={SigninScreen} exact />
-			<Route path="/present" component={Presentation} exact />
-			<Route path="/edit" component={Notepad} exact />
-		</Switch>
-	</main>
-);
-const App = (
-	<div>
-		<BrowserRouter />
-	</div>
+const routes = (
+	<Router history={hashHistory}>
+		<Route path="/" component={SigninScreen} />
+		<Route path="/present" component={Presentation} />
+		<Route path="/edit" component={Notepad} />
+	</Router>
 );
 
-export default App;
+export default routes
