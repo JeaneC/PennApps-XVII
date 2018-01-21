@@ -6,6 +6,7 @@ import menu from '../assets/menu.png';
 import presentation from '../assets/presentation.png';
 import edit from '../assets/edit.png';
 import folder from '../assets/folder.png';
+import googleAnalytics from '../assets/googleAnalytics.png'
 import logout from '../assets/logout.png';
 import { firebase, database } from '../firebase/firebase';
 import Iframe from 'react-iframe';
@@ -136,7 +137,7 @@ class Dashboard extends Component {
 				<BoxClose2>
 					<Link to="/visualize">
 						<Box3>
-							<Icon src={folder} />
+							<Icon src={googleAnalytics} />
 						</Box3>
 					</Link>
 				</BoxClose2>
