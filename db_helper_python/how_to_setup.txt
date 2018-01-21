@@ -1,0 +1,7 @@
+instructions to use these files:
+
+1. Have a google api account and setup the path variables accordingly
+2. pip install --upgrade google-cloud-speech
+3. pip install pyrebase
+4. pip install pyaudio
+5. pip install gensim
