@@ -41,7 +41,7 @@ class LoginScreen extends Component {
 		email: 'jeane.carlos15@stjohns.edu',
 		pass: 'password1',
 		code: '67445',
-		room: '971848'
+		room: ''
 	};
 	componentWillMount() {
 		this.keyboardDidShowListener = Keyboard.addListener(

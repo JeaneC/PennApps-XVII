@@ -172,7 +172,10 @@ class SpeakerScreen extends Component {
 	};
 
 	nextSlide = () => {
-		if (this.state.currentSlide < this.state.totalSlide + 1) {
+		if (
+			this.state.currentSlide < this.state.totalSlide + 1 &&
+			this.props.room
+		) {
 			database
 				.ref(`Classes/${this.props.code}/Slide`)
 				.set(this.state.currentSlide + 1);
@@ -183,7 +186,7 @@ class SpeakerScreen extends Component {
 	};
 
 	prevSlide = () => {
-		if (this.state.currentSlide > 1) {
+		if (this.state.currentSlide > 1 && this.props.room) {
 			database
 				.ref(`Classes/${this.props.code}/Slide`)
 				.set(this.state.currentSlide - 1);
