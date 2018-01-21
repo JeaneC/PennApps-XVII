@@ -127,61 +127,81 @@ const BubbleText = styled.p`
 `;
 //#f8eee7
 class Presentation extends Component {
-	state = {
-		chatList: [
-			{
-				timeStamp: '3:14 PM',
-				slide: 5,
-				text:
-					'Cras vitae elit sit amet justo euismod sagittis vel quis ipsum. Mauris luctus ipsum sed nunc varius cursus. Donec ultrices euismod suscipit. Vivamus vel lectus felis'
-			},
-			{
-				timeStamp: '3:29 PM',
-				slide: 6,
-				text:
-					'Nunc lacus sem, aliquet ac consequat tincidunt, volutpat eget erat. Aenean vulputate egestas velit eget tincidunt. Pellentesque vel enim tortor. Nam libero lorem, efficitur sit amet ex vestibulum, congue volutpat lacus.'
-			},
-			{
-				timeStamp: '3:29 PM',
-				slide: 6,
-				text:
-					'Nunc lacus sem, aliquet ac consequat tincidunt, volutpat eget erat. Aenean vulputate egestas velit eget tincidunt. Pellentesque vel enim tortor. Nam libero lorem, efficitur sit amet ex vestibulum, congue volutpat lacus.'
-			},
-			{
-				timeStamp: '3:29 PM',
-				slide: 6,
-				text:
-					'Nunc lacus sem, aliquet ac consequat tincidunt, volutpat eget erat. Aenean vulputate egestas velit eget tincidunt. Pellentesque vel enim tortor. Nam libero lorem, efficitur sit amet ex vestibulum, congue volutpat lacus.'
-			},
-			{
-				timeStamp: '3:29 PM',
-				slide: 6,
-				text:
-					'Nunc lacus sem, aliquet ac consequat tincidunt, volutpat eget erat. Aenean vulputate egestas velit eget tincidunt. Pellentesque vel enim tortor. Nam libero lorem, efficitur sit amet ex vestibulum, congue volutpat lacus.'
-			}
-		]
-	};
 
-	componentDidMount() {}
-	render() {
+    state = {
+        chatList: []
+    };
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            chatList: [],
+            firstItem: true
+        };
+        this.addBubble = this.addBubble.bind(this);
+    }
+
+    addBubble(bubbleObj) {
+        const bubbleObjects = [...this.state.chatList, bubbleObj];
+        this.setState({chatList: bubbleObjects});
+    }
+
+    componentDidMount() {
+        firebase
+            .auth()
+            .signInAnonymously()
+            .catch(function (error) {
+                let errorCode = error.code;
+                let errorMessage = error.message;
+                console.log('Error ' + errorCode + ': ' + errorMessage);
+            });
+        let transcriptRef = database.ref('Classes/67445/Transcript');
+        transcriptRef.on('value', snapshot => {
+            console.log(this.state.firstItem);
+            if (!this.state.firstItem) {
+                let lastAdded = snapshot.val()[
+                    Object.keys(snapshot.val())[Object.keys(snapshot.val()).length - 1]
+                    ];
+                console.log(lastAdded);
+                console.log('see above');
+                this.addBubble({
+                    Timestamp: lastAdded.Timestamp,
+                    Slide: lastAdded.Slide,
+                    Text: lastAdded.Text
+                });
+            }
+            else {
+                this.setState({firstItem: false});
+                console.log(snapshot.val());
+                for (let key in snapshot.val()) {
+                    if (!snapshot.val().hasOwnProperty(key)) continue;
+                    let obj = snapshot.val()[key];
+                    this.addBubble(obj);
+                }
+            }
+        });
+    }
+
+
+    render() {
 		return (
 			<Container>
 				<Dashboard />
 				<Body>
 					<Frame />
 					<Transcript>
-						{this.state.chatList.map(bubble => {
-							return (
-								<BubbleContainer>
+                        {this.state.chatList.map((bubble, i) => {
+                            return (
+								<BubbleContainer key={i}>
 									<TextCaption>
-										{bubble.timeStamp} - Slide {bubble.slide}
+                                        {bubble.Timestamp} - Slide {bubble.Slide}
 									</TextCaption>
 									<Bubble>
-										<BubbleText>{bubble.text}</BubbleText>
+										<BubbleText>{bubble.Text}</BubbleText>
 									</Bubble>
 								</BubbleContainer>
-							);
-						})}
+                            );
+                        })}
 					</Transcript>
 				</Body>
 			</Container>

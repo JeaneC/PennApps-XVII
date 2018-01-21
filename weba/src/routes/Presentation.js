@@ -91,7 +91,6 @@ const Transcript = styled.div`
 const BubbleContainer = styled.div`
 	width: 90%;
 	min-height: 110px;
-	max-height: 110px;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
@@ -103,6 +102,7 @@ const TextCaption = styled.div`
 	margin-left: 5px;
 	margin-bottom: 10px;
 	color: white;
+	flex: 1;
 `;
 
 const Bubble = styled.div`
@@ -110,7 +110,7 @@ const Bubble = styled.div`
 	width: 100%;
 	border-radius: 15px;
 	background-color: #f8eee7;
-	display: flex;
+	flex: 1;
 	justify-content: center;
 	align-items: center;
 `;
@@ -127,41 +127,6 @@ class Presentation extends Component {
     state = {
         chatList: []
     };
-
-    componentDidMount() {
-    }
-
-    render() {
-        return (
-            <Container>
-                <Dashboard />
-                <Body>
-                <Frame
-                    src={pptId}
-                    width="100%"
-                    height="100%"
-                    frameBorder="0"
-                    allowtransparency="true"
-                    style={{backgroundColor: 'white'}}
-                />
-                <Transcript>
-                    {this.state.chatList.map(bubble => {
-                        return (
-                            <BubbleContainer>
-                                <TextCaption>
-                                    {bubble.timeStamp} - Slide {bubble.slide}
-                                </TextCaption>
-                                <Bubble>
-                                    <BubbleText>{bubble.text}</BubbleText>
-                                </Bubble>
-                            </BubbleContainer>
-                        );
-                    })}
-                </Transcript>
-                </Body>
-            </Container>
-        );
-    }
 
     constructor(props) {
         super(props);
@@ -189,17 +154,27 @@ class Presentation extends Component {
         let transcriptRef = database.ref('Classes/67445/Transcript');
         transcriptRef.on('value', snapshot => {
             console.log(this.state.firstItem);
-            if (this.state.firstItem === false) {
+            if (!this.state.firstItem) {
                 let lastAdded = snapshot.val()[
                     Object.keys(snapshot.val())[Object.keys(snapshot.val()).length - 1]
                     ];
+                console.log(lastAdded);
+                console.log('see above');
                 this.addBubble({
-                    timeStamp: lastAdded.Timestamp,
-                    slide: lastAdded.Slide,
-                    text: lastAdded.Text
+                    Timestamp: lastAdded.Timestamp,
+                    Slide: lastAdded.Slide,
+                    Text: lastAdded.Text
                 });
             }
-            this.state.firstItem ? this.setState({firstItem: false}) : 1 + 1;
+            else {
+                this.setState({firstItem: false});
+                console.log(snapshot.val());
+                for (let key in snapshot.val()) {
+                    if (!snapshot.val().hasOwnProperty(key)) continue;
+                    let obj = snapshot.val()[key];
+                    this.addBubble(obj);
+                }
+            }
         });
     }
 
@@ -222,10 +197,10 @@ class Presentation extends Component {
                         return (
                             <BubbleContainer key={i}>
                                 <TextCaption>
-                                    {bubble.timeStamp} - Slide {bubble.slide}
+                                    {bubble.Timestamp} - Slide {bubble.Slide}
                                 </TextCaption>
                                 <Bubble>
-                                    <BubbleText>{bubble.text}</BubbleText>
+                                    <BubbleText>{bubble.Text}</BubbleText>
                                 </Bubble>
                             </BubbleContainer>
                         );
