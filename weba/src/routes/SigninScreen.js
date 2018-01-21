@@ -3,6 +3,10 @@ import styled from 'styled-components';
 
 import webABG from '../assets/webABG.png';
 import { firebase, database } from '../firebase/firebase';
+import { connect } from 'react-redux';
+import { login } from '../actions';
+import { browserHistory, hashHistory } from 'react-router';
+
 const Container = styled.div`
 	display: flex;
 	flex: 1;
@@ -151,6 +155,10 @@ const ButtonText2 = styled.div`
 class SigninScreen extends Component {
 	state = { email: '', pass: '', code: '' };
 
+	componentDidMount() {
+		console.log('signIn', this.props);
+	}
+
 	onEmailChange = event => {
 		this.setState({ email: event.target.value });
 	};
@@ -174,11 +182,17 @@ class SigninScreen extends Component {
 					.ref(`Users/${uid}/Name`)
 					.once('value')
 					.then(snapshot => snapshot.val());
-				console.log('name', name, uid);
-				// await this.props.signIn(uid, code, name);
+
+				await this.props.login(uid, code, name);
+				console.log('props', this.props);
+				// this.props.router.push('/#/present');
+				hashHistory.push('/present');
+
 				// this.props.navigation.navigate('theme');
 			})
-			.catch(() => {});
+			.catch(e => {
+				console.log(e);
+			});
 	};
 	render() {
 		return (
@@ -229,4 +243,10 @@ class SigninScreen extends Component {
 	}
 }
 
-export default SigninScreen;
+const mapDispatchToProps = dispatch => ({
+	login: (userName, uid, code) => {
+		dispatch(login(userName, uid, code));
+	}
+});
+
+export default connect(null, mapDispatchToProps)(SigninScreen);

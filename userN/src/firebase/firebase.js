@@ -27,14 +27,6 @@ export const getClassData = async classCode => {
 		});
 };
 
-export const updateScheduleToFirebase = (route, uid, schedule) => {
-	database.ref(`Lines/Route ${route}/${uid}/schedule`).set(schedule);
-};
-
-export const updateTravelTimeToFirebase = (route, uid, time) => {
-	database.ref(`Lines/Route ${route}/${uid}/nextStop/time`).set(time);
-};
-
 // export { firebase, mainRef, userRef, database };
 
 const config2 = {

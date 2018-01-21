@@ -6,13 +6,13 @@ import Presentation from './routes/Presentation';
 import Notepad from './routes/Notepad';
 import Router from './routes';
 
+import { Provider } from 'react-redux';
+import configureStore from './store/configureStore';
+const store = configureStore(); //This returns the store
+
 class App extends Component {
 	render() {
-		return (
-			<div className="App">
-				<SigninScreen />
-			</div>
-		);
+		return <Router />;
 	}
 }
 
