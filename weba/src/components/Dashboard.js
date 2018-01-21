@@ -133,7 +133,13 @@ class Dashboard extends Component {
 						</Box3>
 					</Link>
 				</BoxClose2>
-
+				<BoxClose2>
+					<Link to="/visualize">
+						<Box3>
+							<Icon src={folder} />
+						</Box3>
+					</Link>
+				</BoxClose2>
 				<HR />
 				<Box2>
 					<Icon src={folder} />
