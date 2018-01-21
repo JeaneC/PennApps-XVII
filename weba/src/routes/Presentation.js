@@ -7,7 +7,7 @@ import presentation from '../assets/presentation.png';
 import edit from '../assets/edit.png';
 import folder from '../assets/folder.png';
 import logout from '../assets/logout.png';
-import { firebase, database } from '../firebase/firebase';
+import { firebase, database, admin } from '../firebase/firebase';
 import Iframe from 'react-iframe';
 import Dashboard from '../components/Dashboard';
 
@@ -189,6 +189,73 @@ class Presentation extends Component {
 						{this.state.chatList.map(bubble => {
 							return (
 								<BubbleContainer>
+									<TextCaption>
+										{bubble.timeStamp} - Slide {bubble.slide}
+									</TextCaption>
+									<Bubble>
+										<BubbleText>{bubble.text}</BubbleText>
+									</Bubble>
+								</BubbleContainer>
+							);
+						})}
+					</Transcript>
+				</Body>
+			</Container>
+		);
+	}
+	constructor(props) {
+		super(props);
+		this.state = {
+			chatList: []
+		};
+		this.addBubble = this.addBubble.bind(this);
+	}
+
+	addBubble(bubbleObj) {
+		const bubbleObjects = [...this.state.chatList, bubbleObj];
+		this.setState({ chatList: bubbleObjects });
+	}
+
+	componentDidMount() {
+		firebase
+			.auth()
+			.signInAnonymously()
+			.catch(function(error) {
+				let errorCode = error.code;
+				let errorMessage = error.message;
+				console.log('Error ' + errorCode + ': ' + errorMessage);
+			});
+		let transcriptRef = database.ref('Classes/67445/Transcript');
+		transcriptRef.on('value', snapshot => {
+			console.log(snapshot.val());
+			let lastAdded = snapshot.val()[
+				Object.keys(snapshot.val())[Object.keys(snapshot.val()).length - 1]
+			];
+			this.addBubble({
+				timeStamp: lastAdded.Timestamp,
+				slide: lastAdded.Slide,
+				text: lastAdded.Text
+			});
+		});
+	}
+
+	render() {
+		return (
+			<Container>
+				<Dashboard />
+				<Body>
+					<Frame
+						src={pptId}
+						width="50%"
+						height="100%"
+						frameBorder="0"
+						allowtransparency="true"
+						style={{ backgroundColor: 'white' }}
+					/>
+					<Transcript>
+						{this.state.chatList.map((bubble, i) => {
+							return (
+								<BubbleContainer key={i}>
 									<TextCaption>
 										{bubble.timeStamp} - Slide {bubble.slide}
 									</TextCaption>
