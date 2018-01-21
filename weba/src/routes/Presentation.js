@@ -125,50 +125,7 @@ const BubbleText = styled.p`
 //#f8eee7
 class Presentation extends Component {
 	state = {
-		chatList: [
-			{
-				timeStamp: '3:14 PM',
-				slide: 5,
-				text:
-					'Cras vitae elit sit amet justo euismod sagittis vel quis ipsum. Mauris luctus ipsum sed nunc varius cursus. Donec ultrices euismod suscipit. Vivamus vel lectus felis'
-			},
-			{
-				timeStamp: '3:29 PM',
-				slide: 6,
-				text:
-					'Nunc lacus sem, aliquet ac consequat tincidunt, volutpat eget erat. Aenean vulputate egestas velit eget tincidunt. Pellentesque vel enim tortor. Nam libero lorem, efficitur sit amet ex vestibulum, congue volutpat lacus.'
-			},
-			{
-				timeStamp: '3:29 PM',
-				slide: 6,
-				text:
-					'Nunc lacus sem, aliquet ac consequat tincidunt, volutpat eget erat. Aenean vulputate egestas velit eget tincidunt. Pellentesque vel enim tortor. Nam libero lorem, efficitur sit amet ex vestibulum, congue volutpat lacus.'
-			},
-			{
-				timeStamp: '3:29 PM',
-				slide: 6,
-				text:
-					'Nunc lacus sem, aliquet ac consequat tincidunt, volutpat eget erat. Aenean vulputate egestas velit eget tincidunt. Pellentesque vel enim tortor. Nam libero lorem, efficitur sit amet ex vestibulum, congue volutpat lacus.'
-			},
-			{
-				timeStamp: '3:29 PM',
-				slide: 6,
-				text:
-					'Nunc lacus sem, aliquet ac consequat tincidunt, volutpat eget erat. Aenean vulputate egestas velit eget tincidunt. Pellentesque vel enim tortor. Nam libero lorem, efficitur sit amet ex vestibulum, congue volutpat lacus.'
-			},
-			{
-				timeStamp: '3:29 PM',
-				slide: 6,
-				text:
-					'Nunc lacus sem, aliquet ac consequat tincidunt, volutpat eget erat. Aenean vulputate egestas velit eget tincidunt. Pellentesque vel enim tortor. Nam libero lorem, efficitur sit amet ex vestibulum, congue volutpat lacus.'
-			},
-			{
-				timeStamp: '3:29 PM',
-				slide: 6,
-				text:
-					'Nunc lacus sem, aliquet ac consequat tincidunt, volutpat eget erat. Aenean vulputate egestas velit eget tincidunt. Pellentesque vel enim tortor. Nam libero lorem, efficitur sit amet ex vestibulum, congue volutpat lacus.'
-			}
-		]
+		chatList: []
 	};
 
 	componentDidMount() {}
@@ -214,6 +171,7 @@ class Presentation extends Component {
 	addBubble(bubbleObj) {
 		const bubbleObjects = [...this.state.chatList, bubbleObj];
 		this.setState({ chatList: bubbleObjects });
+		this.setState({ firstItem : true});
 	}
 
 	componentDidMount() {
@@ -228,14 +186,16 @@ class Presentation extends Component {
 		let transcriptRef = database.ref('Classes/67445/Transcript');
 		transcriptRef.on('value', snapshot => {
 			console.log(snapshot.val());
-			let lastAdded = snapshot.val()[
-				Object.keys(snapshot.val())[Object.keys(snapshot.val()).length - 1]
-			];
-			this.addBubble({
-				timeStamp: lastAdded.Timestamp,
-				slide: lastAdded.Slide,
-				text: lastAdded.Text
-			});
+			this.state.firstItem ? this.setState({firstItem : false}) : () => {
+                let lastAdded = snapshot.val()[
+                    Object.keys(snapshot.val())[Object.keys(snapshot.val()).length - 1]
+                    ];
+                this.addBubble({
+                    timeStamp: lastAdded.Timestamp,
+                    slide: lastAdded.Slide,
+                    text: lastAdded.Text
+                });
+            }
 		});
 	}
 
