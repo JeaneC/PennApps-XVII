@@ -1,7 +1,7 @@
 # PennApps-XVII
 
-    Gradian is a classroom tool used by both professors and students to bring a more interactive and complete learning environment. 
-This is a very simple, intuitive and user-friendly mobile and web tool that can be easily learned. Both the web and the mobile applications use the same login information from the student.
+    Gradian is a classroom tool used by both professors and students to bring a more interactive and complete learning 
+environment. This is a very simple, intuitive and user-friendly mobile and web tool that can be easily learned. Both the web and the mobile applications use the same login information from the student.
 
 ABOUT
 ## Inspiration
