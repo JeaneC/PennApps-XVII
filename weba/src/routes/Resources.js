@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
+import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 
 import webABG from '../assets/webABG.png';
@@ -7,12 +8,14 @@ import presentation from '../assets/presentation.png';
 import edit from '../assets/edit.png';
 import folder from '../assets/folder.png';
 import logout from '../assets/logout.png';
-import { firebase, database } from '../firebase/firebase';
+import {firebase, database} from '../firebase/firebase';
 import Iframe from 'react-iframe';
 import Dashboard from '../components/Dashboard';
+import Panel from 'muicss/lib/react/panel';
+
 
 const pptId =
-	'https://docs.google.com/presentation/d/e/2PACX-1vQMWeVYHk5NjwNqLjM-wcxqQK8qcVhdi53wprdAIl7Mqy7Xx1je9JdaaOn7RUMHK0jrejPLPqJDxibX/embed?start=false&loop=false&delayms=3000';
+    'https://docs.google.com/presentation/d/e/2PACX-1vQMWeVYHk5NjwNqLjM-wcxqQK8qcVhdi53wprdAIl7Mqy7Xx1je9JdaaOn7RUMHK0jrejPLPqJDxibX/embed?start=false&loop=false&delayms=3000';
 const Container = styled.div`
 	display: flex;
 	flex: 1;
@@ -75,7 +78,7 @@ const SmallGap = styled.div`
 const Frame = styled.textarea`
 	outline: none;
 	opacity: 0.7;
-	width: 100%;
+	width: 94%;
 	height: 88vh;
 	padding: 20px;
 	font-size: 18px;
@@ -126,24 +129,14 @@ const BubbleText = styled.p`
 	text-align: justify;
 `;
 //#f8eee7
-class Presentation extends Component {
-
-    state = {
-        chatList: []
-    };
-
+class Resources extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            chatList: [],
-            firstItem: true
+            summary: "",
+            links: [],
+            gdrive: ""
         };
-        this.addBubble = this.addBubble.bind(this);
-    }
-
-    addBubble(bubbleObj) {
-        const bubbleObjects = [...this.state.chatList, bubbleObj];
-        this.setState({chatList: bubbleObjects});
     }
 
     componentDidMount() {
@@ -155,58 +148,34 @@ class Presentation extends Component {
                 let errorMessage = error.message;
                 console.log('Error ' + errorCode + ': ' + errorMessage);
             });
-        let transcriptRef = database.ref('Classes/67445/Transcript');
+        let transcriptRef = database.ref('Classes/67445/Summary');
         transcriptRef.on('value', snapshot => {
-            console.log(this.state.firstItem);
-            if (!this.state.firstItem) {
-                let lastAdded = snapshot.val()[
-                    Object.keys(snapshot.val())[Object.keys(snapshot.val()).length - 1]
-                    ];
-                console.log(lastAdded);
-                console.log('see above');
-                this.addBubble({
-                    Timestamp: lastAdded.Timestamp,
-                    Slide: lastAdded.Slide,
-                    Text: lastAdded.Text
-                });
+            this.setState({summary: snapshot.val()});
+            document.getElementById("textPlease").value = this.state.summary;
+        });
+        let links = [];
+        database.ref('Classes/67445/Links').once('value').then(linksSnapshot => {
+            for (let key in linksSnapshot.val()) {
+                if (!linksSnapshot.val().hasOwnProperty(key)) continue;
+                links.push(linksSnapshot.val()[key].Link);
             }
-            else {
-                this.setState({firstItem: false});
-                console.log(snapshot.val());
-                for (let key in snapshot.val()) {
-                    if (!snapshot.val().hasOwnProperty(key)) continue;
-                    let obj = snapshot.val()[key];
-                    this.addBubble(obj);
-                }
-            }
+            console.log(links);
+            let myLinks = links;
+            this.setState({links: myLinks.splice(0, 10)});
         });
     }
 
 
     render() {
-		return (
-			<Container>
-				<Dashboard />
-				<Body>
-					<Frame />
-					<Transcript>
-                        {this.state.chatList.map((bubble, i) => {
-                            return (
-								<BubbleContainer key={i}>
-									<TextCaption>
-                                        {bubble.Timestamp} - Slide {bubble.Slide}
-									</TextCaption>
-									<Bubble>
-										<BubbleText>{bubble.Text}</BubbleText>
-									</Bubble>
-								</BubbleContainer>
-                            );
-                        })}
-					</Transcript>
-				</Body>
-			</Container>
-		);
-	}
+        return (
+            <Container>
+                <Dashboard />
+                <Body>
+                <Frame id="textPlease" ref="textPlease"></Frame>
+                </Body>
+            </Container>
+        );
+    }
 }
 
-export default Presentation;
+export default Resources;
