@@ -1,40 +1,37 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router';
+
 import webABG from '../assets/webABG.png';
 import menu from '../assets/menu.png';
 import presentation from '../assets/presentation.png';
 import edit from '../assets/edit.png';
 import folder from '../assets/folder.png';
 import logout from '../assets/logout.png';
-import { firebase, database } from '../firebase/firebase';
+import { firebase, database, admin } from '../firebase/firebase';
 import Iframe from 'react-iframe';
+import Dashboard from '../components/Dashboard';
+
+import BackgroundImage from '../assets/pesk.png';
+
+import { connect } from 'react-redux';
 
 const pptId =
 	'https://docs.google.com/presentation/d/e/2PACX-1vQMWeVYHk5NjwNqLjM-wcxqQK8qcVhdi53wprdAIl7Mqy7Xx1je9JdaaOn7RUMHK0jrejPLPqJDxibX/embed?start=false&loop=false&delayms=3000';
 const Container = styled.div`
 	display: flex;
 	flex: 1;
-
+	background: linear-gradient(#502764, #252323);
 	height: 100vh;
 	justify-content: center;
 	align-items: center;
 `;
 
-const NavBar = styled.div`
-	flex: 0.7;
-	display: flex;
-	flex-direction: column;
-	height: 100vh;
-
-	justify-content: space-between;
-	align-items: center;
-`;
+const pptId2 =
+	'https://docs.google.com/presentation/d/e/2PACX-1vSamwUlg7Qcnd8EIpGyzeY6ebeU4CFMUUvEXPWjgjPF9K_5rAokHdnnSxsGiqHzvuW2yTbgZexPezmJ/embed?start=false&loop=false&delayms=3000';
 
 const Body = styled.div`
 	flex: 12;
 	height: 100vh;
-	background-color: #f8eee7;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -42,7 +39,7 @@ const Body = styled.div`
 //#6E3667
 //#f8eee7
 const Icon = styled.img`
-	width: 30px;
+	width: 50px;
 `;
 
 const Box = styled.div`
@@ -84,67 +81,71 @@ const SmallGap = styled.div`
 
 const Frame = styled.iframe`
 	background: white;
+	width: 100%;
 `;
 
 const Transcript = styled.div`
-	background-color: #94618e;
 	width: 45%;
-	height: 90vh;
-`;
-
-const BoxClose = styled.div`
-	flex: 0.75;
+	height: 100vh;
+	overflow-y: auto;
 	display: flex;
-	justify-content: center;
+	flex-direction: column;
 	align-items: center;
 `;
 
-const BoxClose2 = styled.div`
-	flex: 0.9;
+const BubbleContainer = styled.div`
+	width: 90%;
+	min-height: 110px;
 	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	margin-top: 40px;
+	margin-bottom: 0px;
+	overflow: auto;
+`;
+
+const TextCaption = styled.div`
+	margin-left: 5px;
+	margin-bottom: 10px;
+	color: white;
+	flex: 1;
+`;
+
+const Bubble = styled.div`
+	width: 100%;
+	border-radius: 15px;
+	background-color: #f8eee7;
+	flex: 1;
 	justify-content: center;
+	overflow: auto;
 	align-items: center;
 `;
 
-class Dashboard extends Component {
+const BubbleText = styled.p`
+	font-size: 12px;
+	font-weight: 400;
+	padding-right: 10px;
+	padding-left: 10px;
+	text-align: justify;
+`;
+
+const Image = styled.img`
+	width: 100%;
+	height: 100%;
+`;
+
+//#f8eee7
+class Home extends Component {
 	render() {
 		return (
-			<NavBar>
-				<BoxClose>
-					<Link to="/dashboard">
-						<Box2>
-							<Icon src={menu} />
-						</Box2>
-					</Link>
-				</BoxClose>
-				<HR />
-				<BoxClose2>
-					<Link to="/present">
-						<Box2>
-							<Icon src={presentation} />
-						</Box2>
-					</Link>
-				</BoxClose2>
-
-				<BoxClose2>
-					<Link to="/edit">
-						<Box3>
-							<Icon src={edit} />
-						</Box3>
-					</Link>
-				</BoxClose2>
-
-				<HR />
-				<Box2>
-					<Icon src={folder} />
-				</Box2>
-				<BigGap />
-				<Box>
-					<Icon src={logout} />
-				</Box>
-			</NavBar>
+			<Container>
+				<Dashboard />
+				<Body>
+					<Image src={BackgroundImage} />
+				</Body>
+			</Container>
 		);
 	}
 }
 
-export default Dashboard;
+export default Home;
