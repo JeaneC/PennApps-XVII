@@ -201,7 +201,6 @@ class Visualization extends Component {
                 }
                 // ['Slide', 'Forward', 'Louder', 'ThumbUp', 'ThumbDown', 'Lower', 'Rewind']
             }
-            console.log(lineArray);
             this.setState({data: feedbackStrings});
             this.setState({lineData: lineArray});
             let emotionNamesArr = [];
@@ -246,7 +245,7 @@ class Visualization extends Component {
         return (
             <Container>
                 <Dashboard />
-                <Body>
+                <Body style={{width:"100%", height: "100%", backgroundColor: "rgba(255, 255, 255, 0.25)"}}>
                 <div>
                     <Chart
                         chartType="PieChart"
@@ -265,18 +264,19 @@ class Visualization extends Component {
                         height="400px"
                         legend_toggle
                     />
+
                     <Chart
                         chartType="LineChart"
                         data={this.state.lineData}
                         options={{backgroundColor: {fill: 'transparent'}, title: "Feedback received during each slide"}}
                         graph_id="LineChart"
-                        width="500px"
+                        width="600px"
                         height="400px"
                         legend_toggle
                     />
                 </div>
+                {/*<h3>Overall emotions during presentation: {this.state.emotionNames.join(', ')}</h3>*/}
                 <div>
-                    <h3>Overall emotions during presentation: {this.state.emotionNames.join(', ')}</h3>
                     <Chart
                         chartType="BarChart"
                         data={this.state.emotionStats}
