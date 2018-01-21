@@ -106,15 +106,16 @@ const TextCaption = styled.div`
 	margin-left: 5px;
 	margin-bottom: 10px;
 	color: white;
+	flex: 1;
 `;
 
 const Bubble = styled.div`
-	overflow: auto;
 	width: 100%;
 	border-radius: 15px;
 	background-color: #f8eee7;
-	display: flex;
+	flex: 1;
 	justify-content: center;
+	overflow: auto;
 	align-items: center;
 `;
 
@@ -147,6 +148,7 @@ class Presentation extends Component {
 	}
 
 	componentDidMount() {
+		console.log('mounted');
 		firebase
 			.auth()
 			.signInAnonymously()
