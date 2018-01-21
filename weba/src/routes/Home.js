@@ -7,9 +7,13 @@ import presentation from '../assets/presentation.png';
 import edit from '../assets/edit.png';
 import folder from '../assets/folder.png';
 import logout from '../assets/logout.png';
-import { firebase, database } from '../firebase/firebase';
+import { firebase, database, admin } from '../firebase/firebase';
 import Iframe from 'react-iframe';
 import Dashboard from '../components/Dashboard';
+
+import BackgroundImage from '../assets/pesk.png';
+
+import { connect } from 'react-redux';
 
 const pptId =
 	'https://docs.google.com/presentation/d/e/2PACX-1vQMWeVYHk5NjwNqLjM-wcxqQK8qcVhdi53wprdAIl7Mqy7Xx1je9JdaaOn7RUMHK0jrejPLPqJDxibX/embed?start=false&loop=false&delayms=3000';
@@ -21,6 +25,9 @@ const Container = styled.div`
 	justify-content: center;
 	align-items: center;
 `;
+
+const pptId2 =
+	'https://docs.google.com/presentation/d/e/2PACX-1vSamwUlg7Qcnd8EIpGyzeY6ebeU4CFMUUvEXPWjgjPF9K_5rAokHdnnSxsGiqHzvuW2yTbgZexPezmJ/embed?start=false&loop=false&delayms=3000';
 
 const Body = styled.div`
 	flex: 12;
@@ -72,18 +79,13 @@ const SmallGap = styled.div`
 	flex: 0.5;
 `;
 
-const Frame = styled.textarea`
-	outline: none;
-	opacity: 0.7;
+const Frame = styled.iframe`
+	background: white;
 	width: 100%;
-	height: 88vh;
-	padding: 20px;
-	font-size: 18px;
-	font-family: 'Garamond';
 `;
 
 const Transcript = styled.div`
-	width: 47.5%;
+	width: 45%;
 	height: 100vh;
 	overflow-y: auto;
 	display: flex;
@@ -124,89 +126,26 @@ const BubbleText = styled.p`
 	font-weight: 400;
 	padding-right: 10px;
 	padding-left: 10px;
-	overflow: auto;
 	text-align: justify;
 `;
+
+const Image = styled.img`
+	width: 100%;
+	height: 100%;
+`;
+
 //#f8eee7
-class Presentation extends Component {
-	state = {
-		chatList: []
-	};
-
-	constructor(props) {
-		super(props);
-		this.state = {
-			chatList: [],
-			firstItem: true
-		};
-		this.addBubble = this.addBubble.bind(this);
-	}
-
-	addBubble(bubbleObj) {
-		const bubbleObjects = [...this.state.chatList, bubbleObj];
-		this.setState({ chatList: bubbleObjects });
-	}
-
-	componentDidMount() {
-		console.log('mounted');
-		firebase
-			.auth()
-			.signInAnonymously()
-			.catch(function(error) {
-				let errorCode = error.code;
-				let errorMessage = error.message;
-				console.log('Error ' + errorCode + ': ' + errorMessage);
-			});
-		let transcriptRef = database.ref('Classes/67445/Transcript');
-		transcriptRef.on('value', snapshot => {
-			console.log(this.state.firstItem);
-			if (!this.state.firstItem) {
-				let lastAdded = snapshot.val()[
-					Object.keys(snapshot.val())[Object.keys(snapshot.val()).length - 1]
-				];
-				console.log(lastAdded);
-				console.log('see above');
-				this.addBubble({
-					Timestamp: lastAdded.Timestamp,
-					Slide: lastAdded.Slide,
-					Text: lastAdded.Text
-				});
-			} else {
-				this.setState({ firstItem: false });
-				console.log(snapshot.val());
-				for (let key in snapshot.val()) {
-					if (!snapshot.val().hasOwnProperty(key)) continue;
-					let obj = snapshot.val()[key];
-					this.addBubble(obj);
-				}
-			}
-		});
-	}
-
+class Home extends Component {
 	render() {
 		return (
 			<Container>
 				<Dashboard />
 				<Body>
-					<Frame />
-					<Transcript>
-						{this.state.chatList.map((bubble, i) => {
-							return (
-								<BubbleContainer key={i}>
-									<TextCaption>
-										{bubble.Timestamp} - Slide {bubble.Slide}
-									</TextCaption>
-									<Bubble>
-										<BubbleText>{bubble.Text}</BubbleText>
-									</Bubble>
-								</BubbleContainer>
-							);
-						})}
-					</Transcript>
+					<Image src={BackgroundImage} />
 				</Body>
 			</Container>
 		);
 	}
 }
 
-export default Presentation;
+export default Home;

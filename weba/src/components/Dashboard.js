@@ -111,7 +111,7 @@ class Dashboard extends Component {
 		return (
 			<NavBar>
 				<BoxClose>
-					<Link to="/">
+					<Link to="/dashboard">
 						<Box2>
 							<Icon src={menu} />
 						</Box2>

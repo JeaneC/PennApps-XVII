@@ -186,7 +186,7 @@ class SigninScreen extends Component {
 				await this.props.login(uid, code, name);
 				console.log('props', this.props);
 				// this.props.router.push('/#/present');
-				hashHistory.push('/present');
+				hashHistory.push('/dashboard');
 
 				// this.props.navigation.navigate('theme');
 			})

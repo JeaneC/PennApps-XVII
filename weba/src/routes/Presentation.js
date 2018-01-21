@@ -147,6 +147,8 @@ class Presentation extends Component {
 	}
 
 	componentDidMount() {
+		console.log('mounted presnetation');
+
 		firebase
 			.auth()
 			.signInAnonymously()
