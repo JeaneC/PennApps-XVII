@@ -88,13 +88,13 @@ const Transcript = styled.div`
 
 const BubbleContainer = styled.div`
 	width: 90%;
-	min-height: 40px;
+	min-height: 110px;
 	max-height: 110px;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
 	margin-top: 40px;
-	margin-bottom: 30px;
+	margin-bottom: 0px;
 `;
 
 const TextCaption = styled.div`
@@ -115,7 +115,7 @@ const Bubble = styled.div`
 
 const BubbleText = styled.p`
 	font-size: 12px;
-	font-weight: bold;
+	font-weight: 400;
 	padding-right: 10px;
 	padding-left: 10px;
 	text-align: justify;
@@ -154,18 +154,18 @@ class Presentation extends Component {
 				text:
 					'Nunc lacus sem, aliquet ac consequat tincidunt, volutpat eget erat. Aenean vulputate egestas velit eget tincidunt. Pellentesque vel enim tortor. Nam libero lorem, efficitur sit amet ex vestibulum, congue volutpat lacus.'
 			},
-            {
-                timeStamp: '3:29 PM',
-                slide: 6,
-                text:
-                    'Nunc lacus sem, aliquet ac consequat tincidunt, volutpat eget erat. Aenean vulputate egestas velit eget tincidunt. Pellentesque vel enim tortor. Nam libero lorem, efficitur sit amet ex vestibulum, congue volutpat lacus.'
-            },
-            {
-                timeStamp: '3:29 PM',
-                slide: 6,
-                text:
-                    'Nunc lacus sem, aliquet ac consequat tincidunt, volutpat eget erat. Aenean vulputate egestas velit eget tincidunt. Pellentesque vel enim tortor. Nam libero lorem, efficitur sit amet ex vestibulum, congue volutpat lacus.'
-            }
+			{
+				timeStamp: '3:29 PM',
+				slide: 6,
+				text:
+					'Nunc lacus sem, aliquet ac consequat tincidunt, volutpat eget erat. Aenean vulputate egestas velit eget tincidunt. Pellentesque vel enim tortor. Nam libero lorem, efficitur sit amet ex vestibulum, congue volutpat lacus.'
+			},
+			{
+				timeStamp: '3:29 PM',
+				slide: 6,
+				text:
+					'Nunc lacus sem, aliquet ac consequat tincidunt, volutpat eget erat. Aenean vulputate egestas velit eget tincidunt. Pellentesque vel enim tortor. Nam libero lorem, efficitur sit amet ex vestibulum, congue volutpat lacus.'
+			}
 		]
 	};
 
