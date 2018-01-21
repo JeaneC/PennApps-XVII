@@ -92,25 +92,48 @@ const Transcript = styled.div`
 	height: 90vh;
 `;
 
+const BoxClose = styled.div`
+	flex: 0.75;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+`;
+
+const BoxClose2 = styled.div`
+	flex: 0.9;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+`;
+
 class Dashboard extends Component {
 	render() {
 		return (
 			<NavBar>
-				<Link to="/">
-					<Box>
-						<Icon src={menu} />
-					</Box>
-				</Link>
+				<BoxClose>
+					<Link to="/">
+						<Box2>
+							<Icon src={menu} />
+						</Box2>
+					</Link>
+				</BoxClose>
 				<HR />
-				<Link to="/present">
-					<Box2>
-						<Icon src={presentation} />
-					</Box2>
-				</Link>
+				<BoxClose2>
+					<Link to="/present">
+						<Box2>
+							<Icon src={presentation} />
+						</Box2>
+					</Link>
+				</BoxClose2>
 
-				<Box3>
-					<Icon src={edit} />
-				</Box3>
+				<BoxClose2>
+					<Link to="/edit">
+						<Box3>
+							<Icon src={edit} />
+						</Box3>
+					</Link>
+				</BoxClose2>
+
 				<HR />
 				<Box2>
 					<Icon src={folder} />

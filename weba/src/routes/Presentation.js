@@ -11,6 +11,8 @@ import { firebase, database } from '../firebase/firebase';
 import Iframe from 'react-iframe';
 import Dashboard from '../components/Dashboard';
 
+import { connect } from 'react-redux';
+
 const pptId =
 	'https://docs.google.com/presentation/d/e/2PACX-1vQMWeVYHk5NjwNqLjM-wcxqQK8qcVhdi53wprdAIl7Mqy7Xx1je9JdaaOn7RUMHK0jrejPLPqJDxibX/embed?start=false&loop=false&delayms=3000';
 const Container = styled.div`
@@ -74,7 +76,7 @@ const SmallGap = styled.div`
 
 const Frame = styled.iframe`
 	background: white;
-	width: 99.5%;
+	width: 100%;
 `;
 
 const Transcript = styled.div`
@@ -177,7 +179,7 @@ class Presentation extends Component {
 				<Body>
 					<Frame
 						src={pptId}
-						width="50%"
+						width="100%"
 						height="100%"
 						frameBorder="0"
 						allowtransparency="true"
@@ -203,4 +205,9 @@ class Presentation extends Component {
 	}
 }
 
-export default Presentation;
+const mapStateToProps = state => {
+	console.log('Presentation', state);
+	return {};
+};
+
+export default connect(mapStateToProps)(Presentation);

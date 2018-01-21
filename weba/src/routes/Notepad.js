@@ -75,17 +75,15 @@ const SmallGap = styled.div`
 const Frame = styled.textarea`
 	outline: none;
 	opacity: 0.7;
-	width: 99.5%;
-	height: 100vh;
+	width: 100%;
+	height: 88vh;
 	padding: 20px;
-	margin-top: 20px;
 	font-size: 18px;
 	font-family: 'Garamond';
 `;
 
 const Transcript = styled.div`
-	width: 45%;
-
+	width: 47.5%;
 	height: 100vh;
 	overflow-y: auto;
 	display: flex;
@@ -95,12 +93,13 @@ const Transcript = styled.div`
 
 const BubbleContainer = styled.div`
 	width: 90%;
-	min-height: 40px;
+	min-height: 110px;
 	max-height: 110px;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
-	margin-top: 15px;
+	margin-top: 40px;
+	margin-bottom: 0px;
 `;
 
 const TextCaption = styled.div`
@@ -121,7 +120,7 @@ const Bubble = styled.div`
 
 const BubbleText = styled.p`
 	font-size: 12px;
-	font-weight: bold;
+	font-weight: 400;
 	padding-right: 10px;
 	padding-left: 10px;
 	text-align: justify;
