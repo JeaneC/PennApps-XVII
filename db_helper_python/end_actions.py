@@ -66,7 +66,7 @@ try:
 			
 			links = []
 			for thing in pKeywords['keywords']:
-				if thing['confidence_score'] > 0.86:
+				if thing['confidence_score'] > 0.90:
 					db.child("Classes/67445/Links").push(
 							{"Link": "https://en.wikipedia.org/wiki/" + thing['keyword']}, user['idToken'])
 			
@@ -99,6 +99,4 @@ except KeyboardInterrupt:
 	my_stream.close()
 except Exception:
 	my_stream.close()
-	
-	traceback.printexc()
 	
