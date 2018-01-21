@@ -18,11 +18,14 @@ const pptId =
 const Container = styled.div`
 	display: flex;
 	flex: 1;
-	background: linear-gradient(#502764, #a07777);
+	background: linear-gradient(#502764, #252323);
 	height: 100vh;
 	justify-content: center;
 	align-items: center;
 `;
+
+const pptId2 =
+	'https://docs.google.com/presentation/d/e/2PACX-1vSamwUlg7Qcnd8EIpGyzeY6ebeU4CFMUUvEXPWjgjPF9K_5rAokHdnnSxsGiqHzvuW2yTbgZexPezmJ/embed?start=false&loop=false&delayms=3000';
 
 const Body = styled.div`
 	flex: 12;
@@ -184,7 +187,7 @@ class Presentation extends Component {
 				<Dashboard />
 				<Body>
 					<Frame
-						src={pptId}
+						src={pptId2}
 						width="50%"
 						height="100%"
 						frameBorder="0"

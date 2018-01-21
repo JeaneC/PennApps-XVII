@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-import webABG from '../assets/webABG.png';
+import webABG from '../assets/BackgroundImage.png';
 import { firebase, database } from '../firebase/firebase';
 import { connect } from 'react-redux';
 import { login } from '../actions';
@@ -10,7 +10,7 @@ import { browserHistory, hashHistory } from 'react-router';
 const Container = styled.div`
 	display: flex;
 	flex: 1;
-	background-color: #6e3667;
+	background: linear-gradient(#502764, #252323);
 	height: 100vh;
 	justify-content: center;
 	align-items: center;
@@ -35,8 +35,8 @@ const Right = styled.div`
 	flex-direction: column;
 	border-radius: 0 30px 30px 0;
   justify-content: : center;
+	background-color: #f8eee7;
   align-items: center;
-  background-color: #94618E;
 `;
 
 const Image = styled.img`
@@ -50,8 +50,8 @@ const Header = styled.div`
 	font-family: Helvetica Neue;
 	align-items: center;
 	justify-content: center;
-	font-size: 80px;
-	color: white;
+	font-size: 74px;
+	color: #502764;
 	width: 100%;
 `;
 
@@ -64,7 +64,7 @@ const Form = styled.div`
 	padding-top: 30px;
 	border-radius: 5px 5px 5px 5px;
 	background-color: #f8eee7;
-	box-shadow: 1px 1px black;
+	box-shadow: 1px 1px 1px 1px black;
 `;
 
 const Footer = styled.div`
@@ -110,7 +110,7 @@ const Button2 = styled.div`
 	height: 60px;
 	background: #f8eee7;
 	border-radius: 10px 10px 10px 10px;
-	box-shadow: 0 2px #999;
+	box-shadow: 0 2px 2px 2px #999;
 
 	&:active {
 		background-color: #f8eee7;
@@ -202,7 +202,7 @@ class SigninScreen extends Component {
 						<Image src={webABG} />
 					</Left>
 					<Right>
-						<Header>Classroom</Header>
+						<Header>Gradian</Header>
 						<Form>
 							<FormLabel>Email Address</FormLabel>
 							<FormInput

@@ -16,7 +16,7 @@ const pptId =
 const Container = styled.div`
 	display: flex;
 	flex: 1;
-	background: linear-gradient(#502764, #a07777);
+	background: linear-gradient(#502764, #252323);
 	height: 100vh;
 	justify-content: center;
 	align-items: center;
