@@ -23,6 +23,7 @@ const Container = styled.div`
 	height: 100vh;
 	justify-content: center;
 	align-items: center;
+	padding-top: 30px;
 `;
 
 const Body = styled.div`
@@ -128,10 +129,14 @@ class Visualization extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            pieDone: false,
+            lineDone: false,
+            emotionDone: false,
+            sentimentDone: false,
             data: [],
             lineData: [['Slide', 'Forward', 'Louder', 'ThumbUp', 'ThumbDown', 'Lower', 'Rewind']],
             emotionNames: ["Not enough data"],
-            emotionStats: {},
+            emotionStats: [],
             sentimentStats: {}
         };
         this.frequency = (array, word) => {
@@ -144,6 +149,37 @@ class Visualization extends Component {
     }
 
     componentWillMount() {
+        // Warn if overriding existing method
+        if(Array.prototype.equals)
+            console.warn("Overriding existing Array.prototype.equals. Possible causes: New API defines the method, there's a framework conflict or you've got double inclusions in your code.");
+// attach the .equals method to Array's prototype to call it on any array
+        Array.prototype.equals = function (array) {
+            // if the other array is a falsy value, return
+            if (!array)
+                return false;
+
+            // compare lengths - can save a lot of time
+            if (this.length != array.length)
+                return false;
+
+            for (let i = 0, l=this.length; i < l; i++) {
+                // Check if we have nested arrays
+                if (this[i] instanceof Array && array[i] instanceof Array) {
+                    // recurse into the nested arrays
+                    if (!this[i].equals(array[i]))
+                        return false;
+                }
+                else if (this[i] != array[i]) {
+                    // Warning - two different object instances will never be equal: {x:20} != {x:20}
+                    return false;
+                }
+            }
+            return true;
+        }
+// Hide method from for-in loops
+        Object.defineProperty(Array.prototype, "equals", {enumerable: false});
+
+
         firebase
             .auth()
             .signInAnonymously()
@@ -201,8 +237,17 @@ class Visualization extends Component {
                 }
                 // ['Slide', 'Forward', 'Louder', 'ThumbUp', 'ThumbDown', 'Lower', 'Rewind']
             }
-            this.setState({data: feedbackStrings});
-            this.setState({lineData: lineArray});
+
+            if (!this.state.data.equals(feedbackStrings)) {
+                console.log("here");
+                this.setState({pieDone: true});
+                this.setState({data: feedbackStrings});
+            }
+            if (!this.state.lineData.equals(lineArray)) {
+                this.setState({lineDone: true});
+                this.setState({lineData: lineArray});
+            }
+
             let emotionNamesArr = [];
             database.ref('Classes/67445/Emotion').once('value').then(emotionSnapshot => {
                 let emotionStatArr = [["Emotion", "Strength (0 min, 100 max)", {role: 'style'}]];
@@ -219,7 +264,10 @@ class Visualization extends Component {
                         emotionNamesArr.push(emotionSnapshot.val()[key]);
                     }
                 }
-                this.setState({emotionStats: emotionStatArr});
+                if (!this.state.emotionStats.equals(emotionStatArr)) {
+                    this.setState({emotionDone: true});
+                    this.setState({emotionStats: emotionStatArr});
+                }
             });
             database.ref('Classes/67445/Sentiment').once('value').then(sentimentSnapshot => {
                 let sentimentStatArr = [["Sentiment", "Strength (0 min, 100 max)", {role: 'style'}]];
@@ -235,8 +283,11 @@ class Visualization extends Component {
                         emotionNamesArr.push(sentimentSnapshot.val()[key]);
                     }
                 }
-                this.setState({sentimentStats: sentimentStatArr});
-                this.setState({emotionNames: emotionNamesArr})
+                if (!this.state.sentimentStats !== (sentimentStatArr)) {
+                    this.setState({sentimentDone: true});
+                    this.setState({sentimentStats: sentimentStatArr});
+                }
+                this.setState({emotionNames: emotionNamesArr});
             });
         });
     }
@@ -245,7 +296,8 @@ class Visualization extends Component {
         return (
             <Container>
                 <Dashboard />
-                <Body style={{width:"100%", height: "100%", backgroundColor: "rgba(255, 255, 255, 0.25)"}}>
+                <Body style={{width: "100%", height: "100%", backgroundColor: "rgba(255, 255, 255, 0.25)"}}>
+                {this.state.pieDone &&
                 <div>
                     <Chart
                         chartType="PieChart"
@@ -258,51 +310,69 @@ class Visualization extends Component {
                             ['Lower', this.frequency(this.state.data, "Lower")],
                             ['Rewind', this.frequency(this.state.data, "Rewind")]
                         ]}
-                        options={{backgroundColor: {fill: 'transparent'}, title: "Frequency of feedback signals"}}
+                        options={{backgroundColor: {fill: 'transparent'}}}
                         graph_id="PieChart"
                         width="500px"
                         height="400px"
                         legend_toggle
                     />
-
-                    <Chart
-                        chartType="LineChart"
-                        data={this.state.lineData}
-                        options={{backgroundColor: {fill: 'transparent'}, title: "Feedback received during each slide"}}
-                        graph_id="LineChart"
-                        width="600px"
-                        height="400px"
-                        legend_toggle
-                    />
                 </div>
+                }
+                {this.state.lineDone &&
+                <div>
+                    <Chart
+                    chartType="LineChart"
+                    data={this.state.lineData}
+                    options={{backgroundColor: {fill: 'transparent'}, title: "Feedback received during each slide"}}
+                    graph_id="LineChart"
+                    width="600px"
+                    height="400px"
+                    legend_toggle
+                />
+                </div>
+                }
                 {/*<h3>Overall emotions during presentation: {this.state.emotionNames.join(', ')}</h3>*/}
+                {this.state.emotionDone &&
                 <div>
                     <Chart
                         chartType="BarChart"
                         data={this.state.emotionStats}
-                        options={{backgroundColor: {fill: 'transparent'}, legend: "none", title: "Strength of Emotions During Presentation (0-100)"}}
+                        options={{
+                            backgroundColor: {fill: 'transparent'},
+                            legend: "none",
+                            title: "Strength of Emotions During Presentation (0-100)"
+                        }}
                         graph_id="EmotionBar"
                         width="500px"
                         height="400px"
                     />
-                    <Chart
+                </div>
+                }
+                {this.state.sentimentDone &&
+                <div>
+                    < Chart
                         chartType="BarChart"
                         data={this.state.sentimentStats}
-                        options={{backgroundColor: {fill: 'transparent'}, legend: "none", title: "Strength of Sentiment During Presentation (0-100)"}}
+                        options={{
+                            backgroundColor: {fill: 'transparent'},
+                            legend: "none",
+                            title: "Strength of Sentiment During Presentation (0-100)"
+                        }}
                         graph_id="SentimentBar"
                         width="500px"
                         height="400px"
                     />
                 </div>
+
+                }
                 </Body>
-            </Container>
+            </Container >
         );
     }
-}
 
-// const mapStateToProps = state => {
+    // const mapStateToProps = state => {
 //     console.log('Presentation', state);
 //     return {};
 // };
-
+}
 export default Visualization;

@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router';
+import {Link} from 'react-router';
 import webABG from '../assets/webABG.png';
 import menu from '../assets/menu.png';
 import presentation from '../assets/presentation.png';
@@ -8,11 +8,11 @@ import edit from '../assets/edit.png';
 import folder from '../assets/folder.png';
 import googleAnalytics from '../assets/googleAnalytics.png'
 import logout from '../assets/logout.png';
-import { firebase, database } from '../firebase/firebase';
+import {firebase, database} from '../firebase/firebase';
 import Iframe from 'react-iframe';
 
 const pptId =
-	'https://docs.google.com/presentation/d/e/2PACX-1vQMWeVYHk5NjwNqLjM-wcxqQK8qcVhdi53wprdAIl7Mqy7Xx1je9JdaaOn7RUMHK0jrejPLPqJDxibX/embed?start=false&loop=false&delayms=3000';
+    'https://docs.google.com/presentation/d/e/2PACX-1vQMWeVYHk5NjwNqLjM-wcxqQK8qcVhdi53wprdAIl7Mqy7Xx1je9JdaaOn7RUMHK0jrejPLPqJDxibX/embed?start=false&loop=false&delayms=3000';
 const Container = styled.div`
 	display: flex;
 	flex: 1;
@@ -108,50 +108,52 @@ const BoxClose2 = styled.div`
 `;
 
 class Dashboard extends Component {
-	render() {
-		return (
-			<NavBar>
-				<BoxClose>
-					<Link to="/dashboard">
-						<Box2>
-							<Icon src={menu} />
-						</Box2>
-					</Link>
-				</BoxClose>
-				<HR />
-				<BoxClose2>
-					<Link to="/present">
-						<Box2>
-							<Icon src={presentation} />
-						</Box2>
-					</Link>
-				</BoxClose2>
+    render() {
+        return (
+            <NavBar>
+                <BoxClose>
+                    <Link to="/dashboard">
+                        <Box2>
+                            <Icon src={menu}/>
+                        </Box2>
+                    </Link>
+                </BoxClose>
+                <HR />
+                <BoxClose2>
+                    <Link to="/present">
+                        <Box2>
+                            <Icon src={presentation}/>
+                        </Box2>
+                    </Link>
+                </BoxClose2>
 
-				<BoxClose2>
-					<Link to="/edit">
-						<Box3>
-							<Icon src={edit} />
-						</Box3>
-					</Link>
-				</BoxClose2>
-				<BoxClose2>
-					<Link to="/visualize">
-						<Box3>
-							<Icon src={googleAnalytics} />
-						</Box3>
-					</Link>
-				</BoxClose2>
-				<HR />
-				<Box2>
-					<Icon src={folder} />
-				</Box2>
-				<BigGap />
-				<Box>
-					<Icon src={logout} />
-				</Box>
-			</NavBar>
-		);
-	}
+                <BoxClose2>
+                    <Link to="/edit">
+                        <Box3>
+                            <Icon src={edit}/>
+                        </Box3>
+                    </Link>
+                </BoxClose2>
+                <BoxClose2>
+                    <Link to="/visualize">
+                        <Box3>
+                            <Icon src={googleAnalytics}/>
+                        </Box3>
+                    </Link>
+                </BoxClose2>
+                <HR />
+                <Link to="/resources">
+                    <Box2>
+                        <Icon src={folder}/>
+                    </Box2>
+                </Link>
+                <BigGap />
+                <Box>
+                    <Icon src={logout}/>
+                </Box>
+            </NavBar>
+        );
+    }
 }
 
 export default Dashboard;
