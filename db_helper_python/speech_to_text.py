@@ -240,7 +240,7 @@ def listen_print_loop(responses):
 		exit()
 	except Exception:
 		my_stream.close()
-		subprocess.call("TextParse.py", shell=True)
+		subprocess.call("speech_to_text.py", shell=True)
 		exit()
 		
 def main():

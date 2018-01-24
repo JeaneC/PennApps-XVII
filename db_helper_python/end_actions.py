@@ -3,6 +3,7 @@
 import pyrebase
 from gensim.summarization import summarize
 import time
+import subprocess
 from paralleldots import set_api_key, get_api_key 
 from paralleldots import similarity, ner, taxonomy, sentiment, keywords, intent, emotion, multilang, abuse
 
@@ -49,6 +50,7 @@ my_stream = db.child("Classes/67445/End").stream(stream_handler, user['idToken']
 try:
 	while True:
 		if didEnd ==1:
+			print("Ending")
 			transactions = db.child("Classes/67445/Transcript/").get(user['idToken'])
 
 			sentenceCount = 0
@@ -94,9 +96,11 @@ try:
 						 
 			db.child("Classes/67445").update({"Summary": toPut}, user['idToken'])
 			db.child("Classes/67445").update({"End": False}, user['idToken'])
+			print("ended")
 			
 except KeyboardInterrupt:
 	my_stream.close()
 except Exception:
+	subprocess.call("end_actions.py", shell=True)
 	my_stream.close()
 	
