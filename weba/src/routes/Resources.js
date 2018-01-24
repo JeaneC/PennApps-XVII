@@ -159,7 +159,6 @@ class Resources extends Component {
                 if (!linksSnapshot.val().hasOwnProperty(key)) continue;
                 links.push(linksSnapshot.val()[key].Link);
             }
-            console.log(links);
             let myLinks = links;
             this.setState({links: myLinks.splice(0, 10)});
         });
