@@ -14,7 +14,7 @@ We built the mobile portion using react-native for the front-end and firebase fo
 ## Challenges we ran into
 One major challenge we ran into was getting and processing live audio and giving a real-time transcription of it to all students enrolled in the class. We were able to solve this issue through a python script that would help bridge the gap between opening an audio stream and doing operations on it while still serving the student a live version of the rest of the site. 
 ## Accomplishments that we’re proud of
-Being able to process text data to the point that we were able to get a summary and information on tone/emotions from it. We are also extremely proud of the 
+Being able to process text data to the point that we were able to get a summary and information on tone/emotions from it.
 ## What we learned
 We learned more about React and its usefulness when coding in JavaScript. Especially when there were many repeating elements in our Material Design. We also learned that first creating a mockup of what we want will facilitate coding as everyone will be on the same page on what is going on and all thats needs to be done is made very evident. We used some API’s such as the Google Speech to Text API and a Summary API. We were able to work around the constraints of the API’s to create a working product. We also learned more about other technologies that we used such as: Firebase, Adobe XD, React-native, and Python.
 ## What's next for Gradian
